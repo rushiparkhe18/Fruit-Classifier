@@ -1,18 +1,30 @@
-# 🚀 Deploy to Railway - FASTEST Option (Better than Render)
+# 🚀 Deploy Options - Choose Best for You
 
-## Why Railway?
-- ✅ **No cold starts** on free tier
-- ✅ **3-5 second responses** (vs Render's 8-15s)
-- ✅ **500 hours/month free** (enough for testing)
-- ✅ **Better performance** than Render free tier
-- ✅ **Automatic HTTPS**
+## ⚠️ Railway Update:
+- ❌ **Now requires credit card** (even for free $5 credit)
+- ✅ Fast performance once set up
+- ✅ $5 free credit/month
+
+## 🆓 Best FREE Options (No Credit Card):
+
+### Option 1: **Vercel** (Recommended - Fast & Free)
+- ✅ **No credit card needed**
+- ✅ **Fast** - 3-5 second responses
+- ✅ **No cold starts**
+- ✅ **100GB bandwidth/month**
+
+### Option 2: **Render** (Your current)
+- ✅ **No credit card needed**
+- ✅ **Unlimited hours**
+- ⚠️ Slower - 8-15 seconds
+- ⚠️ Cold starts (30-60s)
 
 ---
 
 ## 🎯 Deploy in 5 Minutes:
 
 ### Step 1: Sign Up
-1. Go to: **https://railway.app/**
+1. Go to: **https://railway.com/**
 2. Click **"Start a New Project"**
 3. Sign in with GitHub
 
@@ -123,7 +135,7 @@ Your URL: `https://fruit-classifier-app.herokuapp.com`
 
 ## 🚀 Next Steps:
 
-1. **Deploy to Railway**: https://railway.app/
+1. **Deploy to Railway**: https://railway.com/
 2. **Update manifest files** with Railway URL
 3. **Rebuild APK** on PWABuilder
 4. **Install and enjoy fast predictions!** 🎉

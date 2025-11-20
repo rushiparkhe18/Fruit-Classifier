@@ -17,24 +17,16 @@ This creates:
 
 ## Step 2: Deploy to Cloud (5 minutes)
 
-### Option A: Railway ⭐⭐⭐ (Recommended - FASTEST & FREE)
+### Option A: Render ⭐ (Current - NO Credit Card Required)
 
-**Best Performance:**
-- ✅ **3-5 second responses** (3x faster than Render!)
-- ✅ **No cold starts** on free tier
-- ✅ **500 hours/month free**
-- ✅ **Automatic deployment**
+**Already set up!**
+- ✅ **No credit card needed**
+- ✅ **Unlimited hours**
+- ✅ **Your app is already live**: https://fruit-classifier-jfc6.onrender.com/
+- ⚠️ 8-15 second responses
+- ⚠️ Cold starts after 15 min inactivity
 
-**Steps:**
-1. **Sign up**: https://railway.app/
-2. **New Project** → **Deploy from GitHub repo**
-3. **Connect** your GitHub account
-4. **Select** this repository: `rushiparkhe18/Fruit-Classifier`
-5. Railway auto-deploys! ✅
-6. Click **"Settings"** → **"Generate Domain"**
-7. **Copy** your deployment URL (e.g., `https://fruit-classifier-production.up.railway.app`)
-
-**Done! No configuration needed - Railway is ready!**
+**You're already using this - APK is ready!**
 
 ---
 
