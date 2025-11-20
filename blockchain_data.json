@@ -120,5 +120,89 @@
     },
     "previous_hash": "15e1dbe3676858f1be934b25dc1eb8653c5cbde40f72e7ce8dd105522ff0e4fa",
     "hash": "e983655848e4157dab768f06d1c6a2aafaf04b4901f12f6d24b61941d5394a43"
+  },
+  {
+    "index": 9,
+    "timestamp": "2025-11-20T22:26:11.588806",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "626b5a43fcad525dfd4786d56aea6181884934fdd2d7c73d47a21630ea952368",
+      "filename": "rotten_apple.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-20T22:26:11.588806"
+    },
+    "previous_hash": "e983655848e4157dab768f06d1c6a2aafaf04b4901f12f6d24b61941d5394a43",
+    "hash": "7581617525c158723062e3aeea8aebdd3a1a4e2e37aac1df86c861f966d5de7f"
+  },
+  {
+    "index": 10,
+    "timestamp": "2025-11-20T22:26:20.117842",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "b131f925c7f0e8dc6e4ca431899c8ce34de661f0bf06afa6e32c99f77ab379a5",
+      "filename": "rotten_mango.jpg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-20T22:26:20.117842"
+    },
+    "previous_hash": "7581617525c158723062e3aeea8aebdd3a1a4e2e37aac1df86c861f966d5de7f",
+    "hash": "63db25111b7965bc2300f2a36510b12d8d0513fbef5622dc934cd9f5def17c83"
+  },
+  {
+    "index": 11,
+    "timestamp": "2025-11-20T22:26:27.336717",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "6a21c022ab1b589f52c9325210b2b641d25acc063cdec5bba4d56af5b9a793ef",
+      "filename": "Rotten_orange.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 73,
+      "timestamp": "2025-11-20T22:26:27.336717"
+    },
+    "previous_hash": "63db25111b7965bc2300f2a36510b12d8d0513fbef5622dc934cd9f5def17c83",
+    "hash": "20219cc39c5661426d993e65e55671645b663dc6446819badb63c6fd404fcbda"
+  },
+  {
+    "index": 12,
+    "timestamp": "2025-11-20T22:26:37.543695",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "0e62d3243ff1866dc5d70508ad89abe7bc868a837482b1401b65199f6a811221",
+      "filename": "banana.jpeg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-20T22:26:37.543695"
+    },
+    "previous_hash": "20219cc39c5661426d993e65e55671645b663dc6446819badb63c6fd404fcbda",
+    "hash": "fb9b5b01a650691c6c194fcc318e65604cbb9bcc5a936f1aaf0f958692fab22d"
+  },
+  {
+    "index": 13,
+    "timestamp": "2025-11-20T22:26:45.322719",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "d0fb9ee38f1be671092493396b854e41666a08138fad983e73b9332ebbd74399",
+      "filename": "single-squash-vegetable-marrow-zucchini-isolated-as-package-design-element-68958488.webp",
+      "freshness_level": "Fresh",
+      "confidence": 99.94845390319824,
+      "timestamp": "2025-11-20T22:26:45.322719"
+    },
+    "previous_hash": "fb9b5b01a650691c6c194fcc318e65604cbb9bcc5a936f1aaf0f958692fab22d",
+    "hash": "8558e0aef0b6bf07bc768874c6ced448366b28c06a7c02890b643f6359d4494e"
+  },
+  {
+    "index": 14,
+    "timestamp": "2025-11-20T22:26:57.828099",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "4f1839be827ae4d9c01b165434de093d563f18f6d91d48a0d8bcfe824f826171",
+      "filename": "rotrten_bana.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 78,
+      "timestamp": "2025-11-20T22:26:57.828099"
+    },
+    "previous_hash": "8558e0aef0b6bf07bc768874c6ced448366b28c06a7c02890b643f6359d4494e",
+    "hash": "77f0dcc7449daaa9acf0fb36153b0d490c0d2e64c08ce72d35368a80db789920"
   }
 ]
