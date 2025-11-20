@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "web",
-      "site": "https://your-domain.com"
+      "site": "https://fruit-classifier-jfc6.onrender.com"
     }
   }
 ]
