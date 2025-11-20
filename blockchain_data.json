@@ -1,0 +1,124 @@
+[
+  {
+    "index": 0,
+    "timestamp": "2025-11-19T23:07:43.161584",
+    "data": {
+      "type": "genesis",
+      "message": "Fruit Freshness Blockchain Initialized"
+    },
+    "previous_hash": "0",
+    "hash": "495762cdd98d13decb46f756cf8b2899ad23afc09a378abbde6bd77158292c35"
+  },
+  {
+    "index": 1,
+    "timestamp": "2025-11-20T09:13:27.333608",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "aa451dd71409b5f011f1361ddf9b220cd77331f27706ea18c66f4753da5b708b",
+      "filename": "apple.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-20T09:13:27.333608"
+    },
+    "previous_hash": "495762cdd98d13decb46f756cf8b2899ad23afc09a378abbde6bd77158292c35",
+    "hash": "cf563c30b0999f9a1ffab868d8b64ee302fbc6f9b86b8a5551c4d87bcfd513da"
+  },
+  {
+    "index": 2,
+    "timestamp": "2025-11-20T09:13:39.264713",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "6a21c022ab1b589f52c9325210b2b641d25acc063cdec5bba4d56af5b9a793ef",
+      "filename": "Rotten_orange.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 73,
+      "timestamp": "2025-11-20T09:13:39.264713"
+    },
+    "previous_hash": "cf563c30b0999f9a1ffab868d8b64ee302fbc6f9b86b8a5551c4d87bcfd513da",
+    "hash": "28c928c6056ece17f25df33d99cd5c6462da807f2636bfeac760dd570c06b707"
+  },
+  {
+    "index": 3,
+    "timestamp": "2025-11-20T21:13:55.287649",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "44c544d31cabf612ffa75adecb5e5d4831ba6f69e97c7e7a01f35067f67a31e5",
+      "filename": "carrrrot.webp",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-20T21:13:55.287649"
+    },
+    "previous_hash": "28c928c6056ece17f25df33d99cd5c6462da807f2636bfeac760dd570c06b707",
+    "hash": "dd240b3382978eef9746ef5e293250924396a8d69db7b8f1ac7614c1e0fb86d0"
+  },
+  {
+    "index": 4,
+    "timestamp": "2025-11-20T21:14:01.444412",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "d0fb9ee38f1be671092493396b854e41666a08138fad983e73b9332ebbd74399",
+      "filename": "single-squash-vegetable-marrow-zucchini-isolated-as-package-design-element-68958488.webp",
+      "freshness_level": "Fresh",
+      "confidence": 99.94845390319824,
+      "timestamp": "2025-11-20T21:14:01.444412"
+    },
+    "previous_hash": "dd240b3382978eef9746ef5e293250924396a8d69db7b8f1ac7614c1e0fb86d0",
+    "hash": "49b72d56096a36781ef133bc697e16933a117c293e987a65cddc68c2bf3d6301"
+  },
+  {
+    "index": 5,
+    "timestamp": "2025-11-20T21:14:10.292715",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "4f1839be827ae4d9c01b165434de093d563f18f6d91d48a0d8bcfe824f826171",
+      "filename": "rotrten_bana.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 78,
+      "timestamp": "2025-11-20T21:14:10.292715"
+    },
+    "previous_hash": "49b72d56096a36781ef133bc697e16933a117c293e987a65cddc68c2bf3d6301",
+    "hash": "68371564cb90a78b04062ca3a0602756f9d746056e376f4e0a670aaa52c3550e"
+  },
+  {
+    "index": 6,
+    "timestamp": "2025-11-20T21:14:14.460581",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "626b5a43fcad525dfd4786d56aea6181884934fdd2d7c73d47a21630ea952368",
+      "filename": "rotten_apple.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-20T21:14:14.460581"
+    },
+    "previous_hash": "68371564cb90a78b04062ca3a0602756f9d746056e376f4e0a670aaa52c3550e",
+    "hash": "a8be78e4eca08d128b5e47cb164ef09da355b57fa67fbc19c61914d777c40f1b"
+  },
+  {
+    "index": 7,
+    "timestamp": "2025-11-20T21:14:18.776408",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "b131f925c7f0e8dc6e4ca431899c8ce34de661f0bf06afa6e32c99f77ab379a5",
+      "filename": "rotten_mango.jpg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-20T21:14:18.776408"
+    },
+    "previous_hash": "a8be78e4eca08d128b5e47cb164ef09da355b57fa67fbc19c61914d777c40f1b",
+    "hash": "15e1dbe3676858f1be934b25dc1eb8653c5cbde40f72e7ce8dd105522ff0e4fa"
+  },
+  {
+    "index": 8,
+    "timestamp": "2025-11-20T21:46:46.317632",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "aa451dd71409b5f011f1361ddf9b220cd77331f27706ea18c66f4753da5b708b",
+      "filename": "apple.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-20T21:46:46.317632"
+    },
+    "previous_hash": "15e1dbe3676858f1be934b25dc1eb8653c5cbde40f72e7ce8dd105522ff0e4fa",
+    "hash": "e983655848e4157dab768f06d1c6a2aafaf04b4901f12f6d24b61941d5394a43"
+  }
+]

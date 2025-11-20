@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="AI-powered fruit freshness detection with blockchain verification">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/img/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/img/icon-192.png">
+    <title>Fruit Freshness Detector - AI Powered</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Add navigation tabs */
+        .nav-tabs {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: #e5e7eb;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            flex: 1;
+            padding: 40px;
+        }
+
+        /* Add blockchain panel styles */
+        .blockchain-panel {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blockchain-panel.active {
+            display: block;
+        }
+
+        .blockchain-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .blockchain-title {
+            font-size: 2em;
+            color: #10b981;
+        }
+
+        .verify-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .verify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .blockchain-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .records-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .record-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #10b981;
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .record-freshness {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .record-confidence {
+            color: #666;
+        }
+
+        .record-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .record-detail {
+            color: #666;
+        }
+
+        .record-detail strong {
+            color: #374151;
+        }
+
+        .hash-text {
+            font-family: monospace;
+            font-size: 0.85em;
+            color: #6b7280;
+            word-break: break-all;
+        }
+
+        h1 {
+            text-align: center;
+            color: #10b981;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .upload-area {
+            border: 3px dashed #10b981;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            background: #f0fdf4;
+            border-color: #059669;
+        }
+
+        .upload-area.dragover {
+            background: #dcfce7;
+            border-color: #059669;
+        }
+
+        .upload-icon {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .preview-container {
+            display: none;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #f0fdf4;
+            border-radius: 15px;
+        }
+
+        .result-title {
+            font-size: 1.3em;
+            color: #10b981;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .prediction {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction-main {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .confidence {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .freshness-details {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        .detail-text {
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Add blockchain info section in results */
+        .blockchain-info {
+            background: #eff6ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .blockchain-info-title {
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-predictions {
+            margin-top: 20px;
+        }
+
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #e5e7eb;
+        }
+
+        .prediction-item:first-child {
+            border-left-width: 6px;
+        }
+
+        .prediction-label {
+            font-weight: 500;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #10b981;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fee2e2;
+            border: 3px solid #dc2626;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .error-title {
+            color: #dc2626;
+            font-size: 1.3em;
+            font-weight: 900;
+            line-height: 1.5;
+        }
+
+        .info-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 10px;
+            border-left: 4px solid #10b981;
+        }
+
+        .info-box h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+
+        .freshness-scale {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .scale-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .scale-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .status-valid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-invalid {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add navigation tabs -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('detector')">Freshness Detector</button>
+        <button class="nav-tab" onclick="switchTab('blockchain')">Blockchain Records</button>
+    </div>
+
+    <!-- Detector Panel -->
+    <div class="content-wrapper" id="detectorPanel">
+        <div class="container">
+            <h1>Fruit Freshness Detector</h1>
+            <p class="subtitle">Upload a fruit image to check its freshness level</p>
+
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">
+                    <strong>Click to upload</strong> or drag and drop<br>
+                    <small>Supports: JPG, PNG, JPEG</small>
+                </div>
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
+
+            <div class="preview-container" id="previewContainer">
+                <img id="previewImage" class="preview-image" alt="Preview">
+            </div>
+
+            <button class="btn" id="predictBtn" disabled>Check Freshness</button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 15px; color: #10b981;">Analyzing freshness...</p>
+            </div>
+
+            <div class="error" id="error"></div>
+
+            <div class="result-container" id="resultContainer">
+                <div class="result-title">Freshness Analysis</div>
+                <div class="prediction">
+                    <div class="prediction-main" id="predictedFreshness"></div>
+                    <div class="confidence" id="confidence"></div>
+                    
+                    <div class="freshness-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Status:</div>
+                            <div class="detail-text" id="description"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Recommendation:</div>
+                            <div class="detail-text" id="recommendation"></div>
+                        </div>
+                    </div>
+
+                    <!-- Add blockchain information -->
+                    <div class="blockchain-info" id="blockchainInfo" style="display: none;">
+                        <div class="blockchain-info-title">
+                            🔗 Blockchain Record
+                        </div>
+                        <div class="record-detail">
+                            <strong>Block Index:</strong> <span id="blockIndex"></span>
+                        </div>
+                        <div class="record-detail">
+                            <strong>Block Hash:</strong><br>
+                            <span class="hash-text" id="blockHash"></span>
+                        </div>
+                        <div class="record-detail">
+                            <strong>Image Hash:</strong><br>
+                            <span class="hash-text" id="imageHash"></span>
+                        </div>
+                        <p style="margin-top: 10px; color: #1e40af; font-size: 0.9em;">
+                            This record is permanently stored on the blockchain and cannot be altered.
+                        </p>
+                    </div>
+                </div>
+                <div class="top-predictions">
+                    <h4 style="color: #10b981; margin-bottom: 10px;">Confidence Breakdown:</h4>
+                    <div id="topPredictions"></div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>Freshness Scale:</h3>
+                <div class="freshness-scale">
+                    {% for level in freshness_levels %}
+                    <div class="scale-item">
+                        <div class="scale-indicator" style="background-color: {{ freshness_info[level]['color'] }}"></div>
+                        <span>{{ freshness_info[level]['emoji'] }} <strong>{{ level }}</strong> - {{ freshness_info[level]['description'] }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Blockchain Panel -->
+    <div class="blockchain-panel" id="blockchainPanel">
+        <div class="blockchain-header">
+            <h2 class="blockchain-title">🔗 Blockchain Records</h2>
+            <button class="verify-btn" onclick="verifyBlockchain()">Verify Integrity</button>
+        </div>
+
+        <div class="blockchain-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalBlocks">0</div>
+                <div class="stat-label">Total Blocks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalRecords">0</div>
+                <div class="stat-label">Freshness Checks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    <span class="status-badge status-valid" id="validityStatus">Valid</span>
+                </div>
+                <div class="stat-label">Chain Status</div>
+            </div>
+        </div>
+
+        <h3 style="color: #10b981; margin-bottom: 15px;">Recent Records</h3>
+        <div class="records-list" id="recordsList">
+            <p style="text-align: center; color: #666;">Loading records...</p>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.getElementById('previewContainer');
+        const previewImage = document.getElementById('previewImage');
+        const predictBtn = document.getElementById('predictBtn');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        const resultContainer = document.getElementById('resultContainer');
+
+        let selectedFile = null;
+
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'detector') {
+                document.getElementById('detectorPanel').style.display = 'flex';
+                document.getElementById('blockchainPanel').classList.remove('active');
+                tabs[0].classList.add('active');
+            } else if (tab === 'blockchain') {
+                document.getElementById('detectorPanel').style.display = 'none';
+                document.getElementById('blockchainPanel').classList.add('active');
+                tabs[1].classList.add('active');
+                loadBlockchainRecords();
+            }
+        }
+
+        async function loadBlockchainRecords() {
+            try {
+                const response = await fetch('/blockchain');
+                const data = await response.json();
+                
+                document.getElementById('totalBlocks').textContent = data.total_blocks;
+                document.getElementById('totalRecords').textContent = data.records.length;
+                
+                const statusBadge = document.getElementById('validityStatus');
+                if (data.is_valid) {
+                    statusBadge.textContent = 'Valid';
+                    statusBadge.className = 'status-badge status-valid';
+                } else {
+                    statusBadge.textContent = 'Invalid';
+                    statusBadge.className = 'status-badge status-invalid';
+                }
+                
+                const recordsList = document.getElementById('recordsList');
+                if (data.records.length === 0) {
+                    recordsList.innerHTML = '<p style="text-align: center; color: #666;">No records yet. Upload a fruit image to create the first record!</p>';
+                } else {
+                    recordsList.innerHTML = data.records.map(record => `
+                        <div class="record-card">
+                            <div class="record-header">
+                                <div class="record-freshness" style="color: ${getFreshnessColor(record.data.freshness_level)}">
+                                    ${record.data.freshness_level}
+                                </div>
+                                <div class="record-confidence">
+                                    ${record.data.confidence.toFixed(2)}% confidence
+                                </div>
+                            </div>
+                            <div class="record-details">
+                                <div class="record-detail">
+                                    <strong>Block:</strong> #${record.index}
+                                </div>
+                                <div class="record-detail">
+                                    <strong>Timestamp:</strong> ${new Date(record.data.timestamp).toLocaleString()}
+                                </div>
+                                <div class="record-detail">
+                                    <strong>Filename:</strong> ${record.data.filename}
+                                </div>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <div class="record-detail">
+                                    <strong>Block Hash:</strong><br>
+                                    <span class="hash-text">${record.hash}</span>
+                                </div>
+                                <div class="record-detail" style="margin-top: 5px;">
+                                    <strong>Image Hash:</strong><br>
+                                    <span class="hash-text">${record.data.image_hash}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) {
+                document.getElementById('recordsList').innerHTML = '<p style="text-align: center; color: #ef4444;">Error loading blockchain records</p>';
+            }
+        }
+
+        async function verifyBlockchain() {
+            try {
+                const response = await fetch('/blockchain/verify');
+                const data = await response.json();
+                
+                alert(data.message + '\n\nTotal Blocks: ' + data.total_blocks);
+                loadBlockchainRecords();
+            } catch (err) {
+                alert('Error verifying blockchain');
+            }
+        }
+
+        function getFreshnessColor(level) {
+            const colors = {
+                'Fresh': '#10b981',
+                'Slightly Ripe': '#84cc16',
+                'Ripe': '#f59e0b',
+                'Overripe': '#f97316',
+                'Rotten': '#ef4444'
+            };
+            return colors[level] || '#666';
+        }
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showError('Please upload an image file');
+                return;
+            }
+
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewContainer.style.display = 'block';
+                predictBtn.disabled = false;
+                resultContainer.style.display = 'none';
+                error.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        predictBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            loading.style.display = 'block';
+            predictBtn.disabled = true;
+            resultContainer.style.display = 'none';
+            error.style.display = 'none';
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayResults(data);
+                } else {
+                    showError(data.error || 'An error occurred', data);
+                }
+            } catch (err) {
+                showError('Failed to connect to server');
+            } finally {
+                loading.style.display = 'none';
+                predictBtn.disabled = false;
+            }
+        });
+
+        function displayResults(data) {
+            document.getElementById('predictedFreshness').innerHTML = 
+                `${data.emoji} <span style="color: ${data.color}">${data.freshness_level}</span>`;
+            document.getElementById('confidence').textContent = 
+                `Confidence: ${data.confidence.toFixed(2)}%`;
+            document.getElementById('description').textContent = data.description;
+            document.getElementById('recommendation').textContent = data.recommendation;
+
+            if (data.blockchain_record) {
+                document.getElementById('blockchainInfo').style.display = 'block';
+                document.getElementById('blockIndex').textContent = data.blockchain_record.block_index;
+                document.getElementById('blockHash').textContent = data.blockchain_record.block_hash;
+                document.getElementById('imageHash').textContent = data.blockchain_record.image_hash;
+            }
+
+            const topPredictionsHtml = data.top_predictions.map(pred => `
+                <div class="prediction-item" style="border-left-color: ${pred.color}">
+                    <span class="prediction-label">${pred.level}</span>
+                    <span>${pred.confidence.toFixed(2)}%</span>
+                </div>
+            `).join('');
+
+            document.getElementById('topPredictions').innerHTML = topPredictionsHtml;
+            resultContainer.style.display = 'block';
+        }
+
+        function showError(message, data = {}) {
+            const errorMessage = data && data.error ? data.error : message;
+            error.innerHTML = `<div class="error-title">${errorMessage}</div>`;
+            error.style.display = 'block';
+            
+            // Auto-hide after 6 seconds
+            setTimeout(() => {
+                error.style.display = 'none';
+            }, 6000);
+        }
+    </script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/static/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
