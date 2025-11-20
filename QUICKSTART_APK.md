@@ -15,9 +15,9 @@ This creates:
 
 ---
 
-## Step 2: Deploy to Railway (5 minutes)
+## Step 2: Deploy to Cloud (5 minutes)
 
-### Option A: Railway (Recommended - Easiest)
+### Option A: Railway ⭐ (Recommended - Easiest)
 
 1. **Sign up**: https://railway.app/
 2. **New Project** → **Deploy from GitHub repo**
@@ -26,7 +26,19 @@ This creates:
 5. Railway will auto-deploy!
 6. **Copy** your deployment URL (e.g., `https://fruit-classifier-production.up.railway.app`)
 
-### Option B: Heroku
+### Option B: Render (Free Tier)
+
+1. **Sign up**: https://render.com/
+2. **New Web Service** → Connect GitHub
+3. **Select** this repository
+4. Render auto-configures from `render.yaml`!
+5. Click **"Create Web Service"**
+6. Wait for deployment (~5 min)
+7. **Copy** your URL (e.g., `https://fruit-classifier.onrender.com`)
+
+**Note**: Render free tier spins down after 15 min inactivity (30-60 sec cold start)
+
+### Option C: Heroku
 
 ```powershell
 # Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
@@ -37,12 +49,6 @@ git add .
 git commit -m "Deploy to Heroku"
 git push heroku main
 ```
-
-### Option C: Render
-
-1. Sign up: https://render.com/
-2. New Web Service → Connect GitHub
-3. Deploy automatically
 
 ---
 

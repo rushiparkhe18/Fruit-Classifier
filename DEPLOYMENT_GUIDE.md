@@ -1,11 +1,32 @@
-# Deployment Configuration for Railway/Heroku
+# Deployment Configuration for Railway/Heroku/Render
 
 # This file helps configure your deployment
 # Copy the relevant section to your platform
 
+## ⚡ Quick Start Commands
+
+### Render Start Command:
+```bash
+gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+```
+
+### Build Command (all platforms):
+```bash
+pip install -r requirements.txt
+```
+
+---
+
 ## Railway Configuration
 # Railway auto-detects Python apps
 # Just connect your GitHub repo and deploy!
+# No configuration needed!
+
+## Render Configuration
+# Use the render.yaml file (already included)
+# Or manually enter:
+# - Build Command: pip install -r requirements.txt
+# - Start Command: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
 
 ## Heroku Configuration (if using Heroku)
 # Make sure these files exist:
