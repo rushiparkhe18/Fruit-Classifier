@@ -24,10 +24,18 @@ import json
 
 # TensorFlow Lite import
 try:
-    import tensorflow as tf
+    # Try to import TFLite interpreter (lighter than full TensorFlow)
+    from tflite_runtime import interpreter as tflite_interpreter
     TFLITE_AVAILABLE = True
+    USE_TFLITE_RUNTIME = True
 except ImportError:
-    TFLITE_AVAILABLE = False
+    try:
+        import tensorflow as tf
+        TFLITE_AVAILABLE = True
+        USE_TFLITE_RUNTIME = False
+    except ImportError:
+        TFLITE_AVAILABLE = False
+        USE_TFLITE_RUNTIME = False
 
 # Blockchain implementation (lightweight for mobile)
 class Block:
@@ -154,7 +162,13 @@ class FruitClassifierApp(App):
                 self.result_label.text = '❌ Model file not found!'
                 return
             
-            self.interpreter = tf.lite.Interpreter(model_path=model_path)
+            if USE_TFLITE_RUNTIME:
+                # Use lightweight TFLite runtime
+                self.interpreter = tflite_interpreter.Interpreter(model_path=model_path)
+            else:
+                # Use full TensorFlow
+                self.interpreter = tf.lite.Interpreter(model_path=model_path)
+            
             self.interpreter.allocate_tensors()
             
             self.input_details = self.interpreter.get_input_details()

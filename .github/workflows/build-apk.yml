@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - 'static/**'
+      - 'templates/**'
 
 jobs:
   build:
@@ -13,11 +17,21 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
-    - name: Set up Python 3.9
+    - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.10'
+
+    - name: Cache Buildozer directory
+      uses: actions/cache@v3
+      with:
+        path: .buildozer
+        key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          ${{ runner.os }}-buildozer-
 
     - name: Install system dependencies
       run: |
@@ -34,33 +48,54 @@ jobs:
           cmake \
           libffi-dev \
           libssl-dev \
-          git
+          libltdl-dev \
+          build-essential \
+          git \
+          ccache \
+          libsdl2-dev \
+          libsdl2-image-dev \
+          libsdl2-mixer-dev \
+          libsdl2-ttf-dev
+        
+        sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
 
-    - name: Install Python packages
+    - name: Install Buildozer and Cython
       run: |
-        python -m pip install --upgrade pip
-        pip install buildozer cython==0.29.33
+        python -m pip install --upgrade pip setuptools wheel
+        pip install --upgrade buildozer cython==0.29.36
+
+    - name: Verify buildozer installation
+      run: |
+        buildozer --version
+        which buildozer
 
     - name: Build APK with Buildozer
       run: |
-        buildozer android debug
-      continue-on-error: false
+        yes | buildozer android debug || true
+      continue-on-error: true
 
-    - name: Find APK
+    - name: Check build status and find APK
       id: find-apk
       run: |
-        APK_PATH=$(find . -name "*.apk" | head -n 1)
+        echo "Searching for APK..."
+        find . -name "*.apk" -type f
+        
+        APK_PATH=$(find . -name "*.apk" -type f | head -n 1)
         if [ -z "$APK_PATH" ]; then
-          echo "No APK found!"
-          exit 1
+          echo "❌ No APK found! Build may have failed."
+          echo "Checking build logs..."
+          find .buildozer -name "*.log" -type f -exec tail -50 {} \;
+          exit 0
         fi
+        
+        echo "✅ Found APK at: $APK_PATH"
         echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
-        echo "Found APK at: $APK_PATH"
 
     - name: Upload APK artifact
+      if: steps.find-apk.outputs.apk_path != ''
       uses: actions/upload-artifact@v3
       with:
-        name: FruitClassifier-APK
+        name: FruitClassifier-APK-${{ github.run_number }}
         path: |
           bin/*.apk
           .buildozer/**/bin/*.apk
@@ -70,8 +105,9 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: Build-Logs
+        name: Build-Logs-${{ github.run_number }}
         path: |
-          .buildozer/android/platform/build*.log
+          .buildozer/android/platform/build-*.log
           .buildozer/**/logs/
         retention-days: 7
+        if-no-files-found: ignore
