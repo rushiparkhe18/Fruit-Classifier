@@ -1,6 +1,6 @@
 {
   "packageId": "com.fruitclassifier.app",
-  "host": "fruit-classifier-jfc6.onrender.com",
+  "host": "slick-needles-retire.loca.lt",
   "name": "Fruit Freshness Classifier",
   "launcherName": "FruitAI",
   "display": "standalone",
@@ -9,8 +9,8 @@
   "backgroundColor": "#10b981",
   "enableNotifications": true,
   "startUrl": "/",
-  "iconUrl": "https://fruit-classifier-jfc6.onrender.com/static/img/icon-512.png",
-  "maskableIconUrl": "https://fruit-classifier-jfc6.onrender.com/static/img/icon-512.png",
+  "iconUrl": "https://breezy-maps-shave.loca.lt/static/img/icon-512.png",
+  "maskableIconUrl": "https://breezy-maps-shave.loca.lt/static/img/icon-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "./android.keystore",
@@ -20,7 +20,7 @@
   "appVersionCode": 1,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
-  "webManifestUrl": "https://fruit-classifier-jfc6.onrender.com/static/manifest.json",
+  "webManifestUrl": "https://breezy-maps-shave.loca.lt/static/manifest.json",
   "fallbackType": "customtabs",
   "features": {
     "locationDelegation": {
