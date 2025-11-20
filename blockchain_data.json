@@ -246,5 +246,47 @@
     },
     "previous_hash": "bd65164b11e3498df068bd9e36c923a0e9e94a5a6a1722bff326b95d3c341c05",
     "hash": "c95752ef7b316cedae48c7d5e1a56c27138991898e334691bae0395626de1d7b"
+  },
+  {
+    "index": 18,
+    "timestamp": "2025-11-21T00:26:26.646161",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "b3d3b1b1875151b97b9ffb235239c7ae7251637906b9e7b232844a31f17ae981",
+      "filename": "apple.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-21T00:26:26.646161"
+    },
+    "previous_hash": "c95752ef7b316cedae48c7d5e1a56c27138991898e334691bae0395626de1d7b",
+    "hash": "f749d25ca03c2e12b80db918115bf78346d32b8c995f67524ddbdb80d485e541"
+  },
+  {
+    "index": 19,
+    "timestamp": "2025-11-21T00:26:41.425682",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "8bbb60aedd71ca6b0efbd48a7235403ad27eaef97180d4f906bb76b7ec5982c5",
+      "filename": "rotten_mango.jpg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-21T00:26:41.425682"
+    },
+    "previous_hash": "f749d25ca03c2e12b80db918115bf78346d32b8c995f67524ddbdb80d485e541",
+    "hash": "9081ef856546cb03a0ff3379b0ff76ed3561b19e1619af8befdf7d0d2009df26"
+  },
+  {
+    "index": 20,
+    "timestamp": "2025-11-21T00:26:51.076491",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "ac3c3327ab61de568ba8e325063bce192efe05af8c81ea5ce306d954b21c754d",
+      "filename": "Rotten_orange.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 83,
+      "timestamp": "2025-11-21T00:26:51.076491"
+    },
+    "previous_hash": "9081ef856546cb03a0ff3379b0ff76ed3561b19e1619af8befdf7d0d2009df26",
+    "hash": "7b35dcc8f37623be24a5d9306fe385c1a6f7553a06758645175ae99af4ce4b3d"
   }
 ]
