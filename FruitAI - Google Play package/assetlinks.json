@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "com.onrender.fruit_classifier_jfc6.twa",
-        "sha256_cert_fingerprints": ["00:F5:39:B7:E9:4F:EA:34:B9:8F:B5:E5:D2:51:03:93:3F:DF:42:5D:91:D1:44:15:14:D0:CB:3D:90:82:E7:83"]
-      }
-    }]

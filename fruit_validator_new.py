@@ -23,17 +23,36 @@ def is_fruit_like_optimized(image_path):
     if unique_colors < 50:
         return False, 0, "Simple graphic"
     
-    # Check for multiple circles (vehicles)
-    blurred = cv2.GaussianBlur(gray, (9, 9), 2)
-    circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, dp=1, minDist=30,
-                               param1=100, param2=30, minRadius=15, maxRadius=200)
-    num_circles = len(circles[0]) if circles is not None else 0
-    if num_circles >= 3:
-        return False, 0, "Vehicle detected"
+    # Detect rectangles and squares (boxes, packages, screens, books)
+    edges = cv2.Canny(gray, 100, 200)
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    rectangular_objects = 0
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        if area < 500:  # Ignore tiny contours
+            continue
+        
+        # Approximate contour to polygon
+        peri = cv2.arcLength(contour, True)
+        approx = cv2.approxPolyDP(contour, 0.04 * peri, True)
+        
+        # Check if it's a rectangle/square (4 corners)
+        if len(approx) == 4:
+            x, y, w, h = cv2.boundingRect(approx)
+            aspect_ratio = float(w) / h if h > 0 else 0
+            
+            # Rectangle or square (aspect ratio between 0.5 and 2.0)
+            if 0.5 <= aspect_ratio <= 2.0 and area > (total_pixels * 0.05):
+                rectangular_objects += 1
+    
+    # Reject if multiple large rectangles/squares detected
+    if rectangular_objects >= 2:
+        return False, 0, "Rectangular objects detected"
+    
+    edge_ratio = np.sum(edges > 0) / total_pixels
     
     # Check for sharp edges
-    edges = cv2.Canny(gray, 100, 200)
-    edge_ratio = np.sum(edges > 0) / total_pixels
     if edge_ratio > 0.25:
         return False, 0, "Mechanical object"
     
@@ -89,7 +108,7 @@ def is_fruit_like_optimized(image_path):
         score += 15
     elif unique_colors > 150:
         score += 10
-    if num_circles <= 1:
+    if rectangular_objects == 0:
         score += 10
     if edge_ratio < 0.08:
         score += 10
@@ -98,11 +117,11 @@ def is_fruit_like_optimized(image_path):
     is_fruit = (
         score >= 45 and
         fruit_color_ratio >= 0.08 and
-        num_circles < 3 and
+        rectangular_objects < 2 and
         edge_ratio < 0.25
     )
     
     confidence = min(100, max(0, score))
-    reason = f"Score:{score}, Colors:{fruit_color_ratio*100:.0f}%, Circles:{num_circles}"
+    reason = f"Score:{score}, Colors:{fruit_color_ratio*100:.0f}%, Rectangles:{rectangular_objects}"
     
     return is_fruit, confidence, reason

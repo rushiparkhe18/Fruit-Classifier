@@ -139,6 +139,10 @@ def detect_rotten_features(image_path):
     fruit_color_ratio = fruit_color_pixels / total_pixels
     rot_indicators['fruit_color_ratio'] = fruit_color_ratio * 100
     
+    # DETECT GROUP FRUITS (high fruit color = multiple fruits)
+    is_group_fruit = fruit_color_ratio > 0.50  # 50%+ fruit color = likely group
+    rot_indicators['is_group_fruit'] = is_group_fruit
+    
     # Check overall image quality
     avg_brightness_check = np.mean(v_channel)
     
@@ -153,9 +157,10 @@ def detect_rotten_features(image_path):
     else:
         background_penalty = False
     
-    # 1. DARK SPOTS - Multiple thresholds for better detection
-    very_dark = np.sum((b_channel < 50) & (g_channel < 50) & (r_channel < 50))
-    dark = np.sum((b_channel < 80) & (g_channel < 80) & (r_channel < 80))
+    # 1. DARK SPOTS - Adjusted thresholds for group fruits
+    # Group fruits have shadows between them - use stricter thresholds
+    very_dark = np.sum((b_channel < 40) & (g_channel < 40) & (r_channel < 40))  # Stricter: 40 instead of 50
+    dark = np.sum((b_channel < 70) & (g_channel < 70) & (r_channel < 70))  # Stricter: 70 instead of 80
     
     very_dark_ratio = very_dark / total_pixels
     dark_ratio = dark / total_pixels
@@ -163,12 +168,21 @@ def detect_rotten_features(image_path):
     rot_indicators['very_dark_spots'] = very_dark_ratio * 100
     rot_indicators['dark_spots'] = dark_ratio * 100
     
-    if very_dark_ratio > 0.05:  # 5%+ very dark = strong rot
-        rot_score += 40
-    elif dark_ratio > 0.08:  # 8%+ dark = moderate rot
-        rot_score += 30
-    elif dark_ratio > 0.03:  # 3%+ dark = early rot
-        rot_score += 20
+    # Relaxed thresholds for group fruits (shadows are normal)
+    if is_group_fruit:
+        if very_dark_ratio > 0.10:  # 10%+ for groups (doubled)
+            rot_score += 40
+        elif dark_ratio > 0.15:  # 15%+ for groups
+            rot_score += 30
+        elif dark_ratio > 0.08:  # 8%+ for groups
+            rot_score += 20
+    else:
+        if very_dark_ratio > 0.05:  # 5%+ very dark = strong rot
+            rot_score += 40
+        elif dark_ratio > 0.08:  # 8%+ dark = moderate rot
+            rot_score += 30
+        elif dark_ratio > 0.03:  # 3%+ dark = early rot
+            rot_score += 20
     
     # 2. BROWN/MUDDY COLORS - Multiple brown ranges
     # Dark brown (deep rot)
@@ -225,13 +239,21 @@ def detect_rotten_features(image_path):
         rot_score += 15
     
     # 6. BRIGHTNESS VARIATION (rot creates blotchy patches)
+    # Group fruits naturally have variation between different fruits
     brightness_std = np.std(v_channel)
     rot_indicators['brightness_std'] = brightness_std
     
-    if brightness_std > 70:  # Very uneven = rot patches
-        rot_score += 20
-    elif brightness_std > 50:
-        rot_score += 10
+    if is_group_fruit:
+        # Group fruits: only extreme variation is concerning
+        if brightness_std > 90:  # Very extreme
+            rot_score += 15
+        elif brightness_std > 75:
+            rot_score += 8
+    else:
+        if brightness_std > 70:  # Very uneven = rot patches
+            rot_score += 20
+        elif brightness_std > 50:
+            rot_score += 10
     
     # 7. COLOR DESATURATION (rot dulls colors)
     avg_saturation = np.mean(s_channel)
@@ -254,15 +276,23 @@ def detect_rotten_features(image_path):
     
     # 9. SPOT DETECTION - Find concentrated dark/brown spots (rot typically starts in patches)
     kernel = np.ones((5,5), np.uint8)
-    dark_mask = ((b_channel < 70) & (g_channel < 70) & (r_channel < 70)).astype(np.uint8)
+    dark_mask = ((b_channel < 60) & (g_channel < 60) & (r_channel < 60)).astype(np.uint8)  # Stricter: 60 instead of 70
     dark_dilated = cv2.dilate(dark_mask, kernel, iterations=2)
     num_dark_spots = cv2.connectedComponents(dark_dilated)[0] - 1  # -1 for background
     
     rot_indicators['dark_spot_count'] = num_dark_spots
-    if num_dark_spots > 5:  # Multiple dark spots = spreading rot
-        rot_score += 20
-    elif num_dark_spots > 2:
-        rot_score += 10
+    
+    # Group fruits: gaps between fruits create "spots" - ignore unless excessive
+    if is_group_fruit:
+        if num_dark_spots > 10:  # Allow more spots for groups
+            rot_score += 15
+        elif num_dark_spots > 6:
+            rot_score += 8
+    else:
+        if num_dark_spots > 5:  # Multiple dark spots = spreading rot
+            rot_score += 20
+        elif num_dark_spots > 2:
+            rot_score += 10
     
     # 10. SOFTNESS INDICATOR - Low contrast = mushy/soft texture
     contrast = np.max(v_channel) - np.min(v_channel)
@@ -275,8 +305,27 @@ def detect_rotten_features(image_path):
         rot_score = int(rot_score * 0.6)  # Reduce score by 40% if too much background
         rot_indicators['background_penalty_applied'] = True
     
-    # DECISION: Threshold for rotten classification
-    is_rotten = rot_score >= 50
+    # DECISION: Higher threshold for rotten classification
+    # Group fruits need higher threshold to avoid false positives
+    threshold = 70 if is_group_fruit else 60
+    
+    # FRESH FRUIT OVERRIDE: If bright, colorful, and high saturation = NOT rotten
+    # Even if shadows/gaps score high
+    is_clearly_fresh = (
+        avg_brightness > 130 and  # Bright
+        avg_saturation > 100 and  # Saturated colors
+        fruit_color_ratio > 0.70 and  # Lots of fruit visible
+        brown_ratio < 0.40  # Not too much brown
+    )
+    
+    if is_clearly_fresh:
+        is_rotten = False
+        rot_indicators['fresh_override'] = True
+        print(f"[Fresh Override] Bright:{avg_brightness:.0f}, Sat:{avg_saturation:.0f}, FruitColor:{fruit_color_ratio*100:.0f}%")
+    else:
+        is_rotten = rot_score >= threshold
+    
+    rot_indicators['threshold_used'] = threshold
     
     rot_indicators['final_score'] = rot_score
     
@@ -308,20 +357,37 @@ def is_fruit_like(image_path):
     edges = cv2.Canny(gray, 100, 200)
     edge_ratio = np.sum(edges > 0) / total_pixels
     
-    # Check for multiple circles (vehicles) - BALANCED sensitivity
-    blurred = cv2.GaussianBlur(gray, (9, 9), 2)
-    circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, dp=1.2, minDist=50,
-                               param1=100, param2=40, minRadius=30, maxRadius=300)
-    num_circles = len(circles[0]) if circles is not None else 0
+    # Detect rectangles and squares (boxes, packages, screens, books)
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
-    # STRICT vehicle detection: 2+ circles AND high edges
-    if num_circles >= 2 and edge_ratio > 0.12:
-        return False, 0, "Vehicle detected (multiple wheels)"
+    rectangular_objects = 0
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        if area < 500:  # Ignore tiny contours
+            continue
+        
+        # Approximate contour to polygon
+        peri = cv2.arcLength(contour, True)
+        approx = cv2.approxPolyDP(contour, 0.04 * peri, True)
+        
+        # Check if it's a rectangle/square (4 corners)
+        if len(approx) == 4:
+            x, y, w, h = cv2.boundingRect(approx)
+            aspect_ratio = float(w) / h if h > 0 else 0
+            
+            # Rectangle or square (aspect ratio between 0.5 and 2.0)
+            if 0.5 <= aspect_ratio <= 2.0 and area > (total_pixels * 0.05):
+                rectangular_objects += 1
+    
+    # Reject if multiple large rectangles/squares detected (packaging, screens)
+    if rectangular_objects >= 2:
+        return False, 0, "Rectangular objects detected (boxes/packages/screens)"
     
     # Check for metallic/reflective surfaces (cars, bikes)
     hist_peaks = np.histogram(gray, bins=256)[0]
-    has_metallic_peaks = np.max(hist_peaks) > (total_pixels * 0.2)  # Very strong concentration
-    if has_metallic_peaks and edge_ratio > 0.20 and num_circles >= 1:
+    has_metallic_peaks = np.max(hist_peaks) > (total_pixels * 0.2)
+    
+    if has_metallic_peaks and edge_ratio > 0.20:
         return False, 0, "Metallic vehicle surface"
     
     # Check for very sharp mechanical edges
@@ -371,7 +437,10 @@ def is_fruit_like(image_path):
     
     score = 0
     
-    if fruit_color_ratio >= 0.30:
+    # Give MORE credit for high fruit color (important for group fruits)
+    if fruit_color_ratio >= 0.60:  # 60%+ fruit color = definitely fruit
+        score += 50
+    elif fruit_color_ratio >= 0.30:
         score += 40
     elif fruit_color_ratio >= 0.15:
         score += 25
@@ -386,8 +455,7 @@ def is_fruit_like(image_path):
         score += 15
     elif unique_colors > 150:
         score += 10
-    if num_circles <= 1:
-        score += 10
+    # Circles are fine for group fruits - no penalty
     if edge_ratio < 0.08:
         score += 10
     
@@ -395,16 +463,16 @@ def is_fruit_like(image_path):
     is_fruit = (
         score >= 40 and  # Lowered from 45 for better fruit acceptance
         fruit_color_ratio >= 0.06 and  # Lowered from 0.08 for dark rotten fruits
-        num_circles < 3 and  # Allow 0-2 circles (fruits can have circular highlights)
+        rectangular_objects < 2 and  # Reject if 2+ rectangles (packaging/boxes)
         edge_ratio < 0.30 and  # Increased tolerance
         (num_lines <= 30 or edge_ratio < 0.15)  # Lines OK if edges are low
     )
     
     confidence = min(100, max(0, score))
-    reason = f"Score:{score}, Colors:{fruit_color_ratio*100:.0f}%, Circles:{num_circles}"
+    reason = f"Score:{score}, Colors:{fruit_color_ratio*100:.0f}%, Rectangles:{rectangular_objects}"
     
     print(f"[Fruit Detection] Score: {score}/100 | Is Fruit: {is_fruit}")
-    print(f"[Details] Colors:{fruit_color_ratio*100:.1f}% | Circles:{num_circles} | EdgeRatio:{edge_ratio*100:.1f}%")
+    print(f"[Details] Colors:{fruit_color_ratio*100:.1f}% | Rectangles:{rectangular_objects} | EdgeRatio:{edge_ratio*100:.1f}%")
     
     return is_fruit, confidence, reason
 

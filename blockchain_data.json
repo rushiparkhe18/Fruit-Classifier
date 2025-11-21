@@ -288,5 +288,215 @@
     },
     "previous_hash": "9081ef856546cb03a0ff3379b0ff76ed3561b19e1619af8befdf7d0d2009df26",
     "hash": "7b35dcc8f37623be24a5d9306fe385c1a6f7553a06758645175ae99af4ce4b3d"
+  },
+  {
+    "index": 21,
+    "timestamp": "2025-11-21T12:38:17.942621",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "e89ad5d7f022f4e8b9506d2c365ea8bf8a1509e783d9a547daf2e63769643017",
+      "filename": "banana.jpeg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-21T12:38:17.942621"
+    },
+    "previous_hash": "7b35dcc8f37623be24a5d9306fe385c1a6f7553a06758645175ae99af4ce4b3d",
+    "hash": "ad8799e5eaec0324267ed2ad62c0197ccd7bd502ffdf479dacdf5dc4217139f1"
+  },
+  {
+    "index": 22,
+    "timestamp": "2025-11-21T12:45:30.167149",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "412aa4d7308980857df7e6f3629b1998c9d7d39499de5024d3bfc00bdd26305c",
+      "filename": "IMG_20251119_200116342.jpg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-21T12:45:30.167149"
+    },
+    "previous_hash": "ad8799e5eaec0324267ed2ad62c0197ccd7bd502ffdf479dacdf5dc4217139f1",
+    "hash": "fb8d6a11a74608bc98ea56d51ff5f94f47578b63c3748f806507820ab3b5e21d"
+  },
+  {
+    "index": 23,
+    "timestamp": "2025-11-21T12:45:47.854901",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "014b2c1d61129f3aac3d50bf38f70de560e4c3c196ed48ce23db478e1839e94c",
+      "filename": "IMG_20251119_200123868.jpg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-21T12:45:47.854901"
+    },
+    "previous_hash": "fb8d6a11a74608bc98ea56d51ff5f94f47578b63c3748f806507820ab3b5e21d",
+    "hash": "7ddb3aac22eb0971386c461220ef76e089b3a256babcd2d85bb0c8747185324e"
+  },
+  {
+    "index": 24,
+    "timestamp": "2025-11-21T12:45:54.925981",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "e89ad5d7f022f4e8b9506d2c365ea8bf8a1509e783d9a547daf2e63769643017",
+      "filename": "banana.jpeg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-21T12:45:54.925981"
+    },
+    "previous_hash": "7ddb3aac22eb0971386c461220ef76e089b3a256babcd2d85bb0c8747185324e",
+    "hash": "83d4d86e9d2054fec6a73fc2b509f0a0fc8864537d43161ebfa4fa5b17830053"
+  },
+  {
+    "index": 25,
+    "timestamp": "2025-11-21T12:45:58.453727",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "b3d3b1b1875151b97b9ffb235239c7ae7251637906b9e7b232844a31f17ae981",
+      "filename": "apple.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-21T12:45:58.453727"
+    },
+    "previous_hash": "83d4d86e9d2054fec6a73fc2b509f0a0fc8864537d43161ebfa4fa5b17830053",
+    "hash": "a11c2f7389c95a78086400060adb66c1fd22dd51225efd1f22d1cdcc8487341c"
+  },
+  {
+    "index": 26,
+    "timestamp": "2025-11-21T12:46:43.983413",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "8bbb60aedd71ca6b0efbd48a7235403ad27eaef97180d4f906bb76b7ec5982c5",
+      "filename": "rotten_mango.jpg",
+      "freshness_level": "Rotten",
+      "confidence": 100,
+      "timestamp": "2025-11-21T12:46:43.983413"
+    },
+    "previous_hash": "a11c2f7389c95a78086400060adb66c1fd22dd51225efd1f22d1cdcc8487341c",
+    "hash": "4a19429e364f08eab88d57a8c4560e90a908abb361a7161cb566dbf72ebf76d7"
+  },
+  {
+    "index": 27,
+    "timestamp": "2025-11-21T12:50:51.589223",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "b3d3b1b1875151b97b9ffb235239c7ae7251637906b9e7b232844a31f17ae981",
+      "filename": "apple.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-21T12:50:51.589223"
+    },
+    "previous_hash": "4a19429e364f08eab88d57a8c4560e90a908abb361a7161cb566dbf72ebf76d7",
+    "hash": "ec8d4393691cb83f2cf3071f3a7ab3aaec426e8efd3e815e62d3f44da428a09f"
+  },
+  {
+    "index": 28,
+    "timestamp": "2025-11-21T12:50:57.672285",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "2602c4587ed4d5fbf9b6e3c051cf87c668230c43b90e9aed6428fd22aab4e04c",
+      "filename": "rotrten_bana.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 72,
+      "timestamp": "2025-11-21T12:50:57.672285"
+    },
+    "previous_hash": "ec8d4393691cb83f2cf3071f3a7ab3aaec426e8efd3e815e62d3f44da428a09f",
+    "hash": "51c9b63e140644b2dfc80f1b88b8f875b84d2e507ef8075538c38296d1419aba"
+  },
+  {
+    "index": 29,
+    "timestamp": "2025-11-21T12:51:03.021961",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "8119c1736a3b4d4faafb9fab61eb4557bcbcd1ed45fd277510916fcaedb37644",
+      "filename": "rotten_apple.jpeg",
+      "freshness_level": "Rotten",
+      "confidence": 83,
+      "timestamp": "2025-11-21T12:51:03.021961"
+    },
+    "previous_hash": "51c9b63e140644b2dfc80f1b88b8f875b84d2e507ef8075538c38296d1419aba",
+    "hash": "95668f46919adf8c84a3e16ad52e464d335cefaad63a18c94ab7471c1ca7cb4d"
+  },
+  {
+    "index": 30,
+    "timestamp": "2025-11-21T12:51:18.137495",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "412aa4d7308980857df7e6f3629b1998c9d7d39499de5024d3bfc00bdd26305c",
+      "filename": "IMG_20251119_200116342.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 99.99781847000122,
+      "timestamp": "2025-11-21T12:51:18.137495"
+    },
+    "previous_hash": "95668f46919adf8c84a3e16ad52e464d335cefaad63a18c94ab7471c1ca7cb4d",
+    "hash": "36c6c6c3856254c117f7934679711d4c18316f341abaa0c1932151c2841bf818"
+  },
+  {
+    "index": 31,
+    "timestamp": "2025-11-21T12:51:25.667393",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "88ca4c0dc9f52431211bfc8f8c63bf4e03b89c43f9646a8866dda94f6d6b8cbc",
+      "filename": "IMG_20251119_200204373.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 99.60688352584839,
+      "timestamp": "2025-11-21T12:51:25.667393"
+    },
+    "previous_hash": "36c6c6c3856254c117f7934679711d4c18316f341abaa0c1932151c2841bf818",
+    "hash": "8513c5b95d0954be0461d5309c124cb5c57d806a2c09123c9b0d687b4caff767"
+  },
+  {
+    "index": 32,
+    "timestamp": "2025-11-21T12:51:34.569565",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "ddffa9560afffa133541ea62ca3fd7baeee6e787b10ede72f1923861fc203f4d",
+      "filename": "IMG_20251119_200134878.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 99.99991655349731,
+      "timestamp": "2025-11-21T12:51:34.569565"
+    },
+    "previous_hash": "8513c5b95d0954be0461d5309c124cb5c57d806a2c09123c9b0d687b4caff767",
+    "hash": "95a67f9132589d3ae26a55939db0b060e2c9399b4df923d5a5b13632654c68dc"
+  },
+  {
+    "index": 33,
+    "timestamp": "2025-11-21T12:51:42.453879",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "0fc7ae0d63660966811f4a2e181d9c47202d42f7d6654e0ebcea4154a5349e11",
+      "filename": "IMG_20251119_200234643.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 99.99940395355225,
+      "timestamp": "2025-11-21T12:51:42.453879"
+    },
+    "previous_hash": "95a67f9132589d3ae26a55939db0b060e2c9399b4df923d5a5b13632654c68dc",
+    "hash": "03019330f90ad10ac74d8f0f5bfc2f13ed356f0efcf9494773000171c8135367"
+  },
+  {
+    "index": 34,
+    "timestamp": "2025-11-21T12:51:50.313590",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "014b2c1d61129f3aac3d50bf38f70de560e4c3c196ed48ce23db478e1839e94c",
+      "filename": "IMG_20251119_200123868.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 100.0,
+      "timestamp": "2025-11-21T12:51:50.313590"
+    },
+    "previous_hash": "03019330f90ad10ac74d8f0f5bfc2f13ed356f0efcf9494773000171c8135367",
+    "hash": "24bb644bb7c3b818f3adde08eca712da9c05d36b7a88c69d3fb57a94ebe74ba9"
+  },
+  {
+    "index": 35,
+    "timestamp": "2025-11-21T13:03:23.734040",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "412aa4d7308980857df7e6f3629b1998c9d7d39499de5024d3bfc00bdd26305c",
+      "filename": "IMG_20251119_200116342.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 99.99781847000122,
+      "timestamp": "2025-11-21T13:03:23.734040"
+    },
+    "previous_hash": "24bb644bb7c3b818f3adde08eca712da9c05d36b7a88c69d3fb57a94ebe74ba9",
+    "hash": "8917e1ef16bec1073b151c0598f0c9fa9dbbeaf19e6bab866a852001106221a1"
   }
 ]

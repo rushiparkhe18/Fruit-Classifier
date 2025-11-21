@@ -806,7 +806,7 @@ This project serves as both an academic demonstration of technical competency an
 ---
 
 **Project Repository:** https://github.com/rushiparkhe18/Fruit-Classifier  
-**Live Demo:** https://fruit-classifier-jfc6.onrender.com  
+**Live Demo:**  https://fruit-classifier-emq9.onrender.com  
 **Documentation Date:** November 21, 2025  
 **Prepared for:** Academic Examination
 
