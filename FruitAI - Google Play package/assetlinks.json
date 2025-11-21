@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.onrender.fruit_classifier_emq9.twa",
+        "sha256_cert_fingerprints": ["F5:6D:29:B7:90:0B:CF:C4:8E:DA:E7:1D:E6:FB:0E:2A:8E:45:60:49:AC:54:A8:E5:7A:95:DE:F2:B3:88:FD:C0"]
+      }
+    }]

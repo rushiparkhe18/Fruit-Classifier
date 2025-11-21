@@ -498,5 +498,19 @@
     },
     "previous_hash": "24bb644bb7c3b818f3adde08eca712da9c05d36b7a88c69d3fb57a94ebe74ba9",
     "hash": "8917e1ef16bec1073b151c0598f0c9fa9dbbeaf19e6bab866a852001106221a1"
+  },
+  {
+    "index": 36,
+    "timestamp": "2025-11-21T13:25:33.870642",
+    "data": {
+      "type": "freshness_check",
+      "image_hash": "88ca4c0dc9f52431211bfc8f8c63bf4e03b89c43f9646a8866dda94f6d6b8cbc",
+      "filename": "IMG_20251119_200204373.jpg",
+      "freshness_level": "Fresh",
+      "confidence": 99.60688352584839,
+      "timestamp": "2025-11-21T13:25:33.870642"
+    },
+    "previous_hash": "8917e1ef16bec1073b151c0598f0c9fa9dbbeaf19e6bab866a852001106221a1",
+    "hash": "2ea1063d0e9a9f4df5997d4426de1542b25d722714b6b6ba8520a700835cdbc8"
   }
 ]
